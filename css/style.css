@@ -448,7 +448,8 @@ body {
 #hospitalityhero::after,
 #educationhero::after,
 #investmenthero::after,
-#contacthero::after {
+#contacthero::after,
+#abouthero::after {
     content: '';
     position: absolute;
     top: 0;
@@ -457,6 +458,10 @@ body {
     bottom: 0;
     background: rgba(0, 0, 0, 0.4);
     z-index: 1;
+}
+
+#abouthero {
+    background: url('https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=1200&h=600&fit=crop') no-repeat center center/cover;
 }
 
 #hospitalityhero {
