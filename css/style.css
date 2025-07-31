@@ -128,7 +128,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    background: url("https://images.pexels.com/photos/1488463/pexels-photo-1488463.jpeg") no-repeat center center/cover;
     animation: float 20s ease-in-out infinite;
 }
 
@@ -420,6 +420,17 @@ body {
     justify-content: center;
     text-align: center;
     color: white;
+}
+#textilehero {
+    background: url('https://images.unsplash.com/photo-1476683874822-744764a2438f?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center/cover;
+}
+
+#hospitalityhero {
+    background: url('https://media.radissonhotels.net/image/radisson-hotel-jaipur-city-center/exterior/16256-114088-f75617450_4k.jpg?impolicy=GalleryLightboxFullscreen') no-repeat center center/cover;
+}
+
+#educationhero {
+    background: url('https://aihmas.com/wp-content/uploads/2024/07/MG_3826.jpg') no-repeat center center/cover;
 }
 
 .page-hero h1 {
