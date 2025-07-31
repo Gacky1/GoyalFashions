@@ -500,7 +500,7 @@ body {
     border-radius: 20px;
     box-shadow: var(--shadow);
     max-width: 600px;
-    margin: 0 auto;
+    margin: 0 0;
 }
 
 .form-group {
