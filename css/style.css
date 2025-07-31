@@ -433,6 +433,14 @@ body {
     background: url('https://aihmas.com/wp-content/uploads/2024/07/MG_3826.jpg') no-repeat center center/cover;
 }
 
+#investmenthero {
+    background: url('https://www.investwithananta.com/wp-content/uploads/2024/05/Untitled-design-1-1.png') no-repeat center center/cover;
+}
+
+#contacthero {
+    background: url('https://images.unsplash.com/photo-1559030623-0226b1241edd?q=80&w=1631&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center/cover;
+}
+
 .page-hero h1 {
     font-size: 3rem;
     font-weight: 800;
