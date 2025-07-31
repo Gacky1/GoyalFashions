@@ -128,8 +128,19 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url("https://images.pexels.com/photos/1488463/pexels-photo-1488463.jpeg") no-repeat center center/cover;
+    background: url("https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D") no-repeat center center/cover;
     animation: float 20s ease-in-out infinite;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
 }
 
 .hero-content {
@@ -139,12 +150,16 @@ body {
 }
 
 .hero h1 {
+    font-family: 'Times New Roman', serif;
     font-size: clamp(3rem, 8vw, 6rem);
     font-weight: 800;
     margin-bottom: 1rem;
     opacity: 0;
     transform: translateY(50px);
     animation: fadeInUp 1s ease 0.5s forwards;
+    color: #ffffff;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+    -webkit-text-stroke: 1px rgba(0, 0, 0, 0.5);
 }
 
 .hero p {
@@ -153,6 +168,9 @@ body {
     opacity: 0;
     transform: translateY(30px);
     animation: fadeInUp 1s ease 0.8s forwards;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    -webkit-text-stroke: 0.5px rgba(0, 0, 0, 0.4);
 }
 
 .cta-button {
@@ -420,9 +438,25 @@ body {
     justify-content: center;
     text-align: center;
     color: white;
+    position: relative;
 }
 #textilehero {
     background: url('https://images.unsplash.com/photo-1476683874822-744764a2438f?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center/cover;
+}
+
+#textilehero::after,
+#hospitalityhero::after,
+#educationhero::after,
+#investmenthero::after,
+#contacthero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
 }
 
 #hospitalityhero {
@@ -430,7 +464,7 @@ body {
 }
 
 #educationhero {
-    background: url('https://aihmas.com/wp-content/uploads/2024/07/MG_3826.jpg') no-repeat center center/cover;
+    background: url('https://aihmas.com/wp-content/uploads/2024/07/lib1-2048x1365-1-1536x1024.jpeg') no-repeat center center/cover;
 }
 
 #investmenthero {
@@ -442,8 +476,20 @@ body {
 }
 
 .page-hero h1 {
+    font-family: 'Times New Roman', serif;
     font-size: 3rem;
     font-weight: 800;
+    color: #ffffff;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+    margin-bottom: 1rem;
+    -webkit-text-stroke: 1px rgba(0, 0, 0, 0.5);
+}
+
+.page-hero p {
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    font-size: 1.1rem;
+    -webkit-text-stroke: 0.5px rgba(0, 0, 0, 0.4);
 }
 
 .product-grid {
