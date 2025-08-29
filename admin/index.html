@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery Admin Panel - GFPL</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .login-form, .admin-panel {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e1e5e9;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: transform 0.2s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .btn-danger {
+            background: #dc3545;
+        }
+        
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .section-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 1rem;
+        }
+        
+        .images-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .image-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .image-item img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+        }
+        
+        .image-delete {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(220, 53, 69, 0.9);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        
+        .upload-area {
+            border: 2px dashed #ccc;
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            margin: 1rem 0;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+        
+        .upload-area:hover {
+            border-color: #667eea;
+        }
+        
+        .upload-area.dragover {
+            border-color: #667eea;
+            background: #f8f9ff;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .alert {
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+        }
+        
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+        }
+        
+        .flex-between {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .flex-gap {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-images"></i> Gallery Admin Panel</h1>
+            <p>Manage gallery sections and images</p>
+        </div>
+
+        <!-- Login Form -->
+        <div id="login-section" class="login-form">
+            <h2>Admin Login</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" required>
+                </div>
+                <button type="submit" class="btn">Login</button>
+            </form>
+            <div id="login-error" class="alert alert-error hidden"></div>
+        </div>
+
+        <!-- Admin Panel -->
+        <div id="admin-section" class="admin-panel hidden">
+            <div class="flex-between" style="margin-bottom: 2rem;">
+                <h2>Gallery Management</h2>
+                <button id="logout-btn" class="btn btn-danger btn-small">Logout</button>
+            </div>
+
+            <!-- Create Section Form -->
+            <div class="section-card">
+                <h3>Create New Section</h3>
+                <form id="create-section-form">
+                    <div class="flex-gap">
+                        <div class="form-group" style="flex: 1;">
+                            <input type="text" id="section-name" placeholder="Section name (e.g., Events, Products)" required>
+                        </div>
+                        <button type="submit" class="btn">Create Section</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Sections List -->
+            <div id="sections-container">
+                <div class="loading">
+                    <i class="fas fa-spinner fa-spin"></i> Loading sections...
+                </div>
+            </div>
+
+            <!-- Alerts -->
+            <div id="alert-container"></div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:3000/api'; // Change this to your deployed API URL
+        let authToken = '';
+        
+        // DOM Elements
+        const loginSection = document.getElementById('login-section');
+        const adminSection = document.getElementById('admin-section');
+        const loginForm = document.getElementById('login-form');
+        const loginError = document.getElementById('login-error');
+        const logoutBtn = document.getElementById('logout-btn');
+        const createSectionForm = document.getElementById('create-section-form');
+        const sectionsContainer = document.getElementById('sections-container');
+        const alertContainer = document.getElementById('alert-container');
+
+        // Authentication
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            authToken = btoa(`${username}:${password}`);
+            
+            try {
+                // Test authentication by trying to fetch sections
+                const response = await fetch(`${API_BASE_URL}/gallery`, {
+                    headers: {
+                        'Authorization': `Basic ${authToken}`
+                    }
+                });
+                
+                if (response.ok) {
+                    loginSection.classList.add('hidden');
+                    adminSection.classList.remove('hidden');
+                    loadSections();
+                } else {
+                    throw new Error('Invalid credentials');
+                }
+            } catch (error) {
+                showLoginError('Invalid username or password');
+            }
+        });
+
+        logoutBtn.addEventListener('click', () => {
+            authToken = '';
+            adminSection.classList.add('hidden');
+            loginSection.classList.remove('hidden');
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            hideLoginError();
+        });
+
+        // Create Section
+        createSectionForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('section-name').value;
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/gallery/section`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Basic ${authToken}`
+                    },
+                    body: JSON.stringify({ name })
+                });
+                
+                if (response.ok) {
+                    document.getElementById('section-name').value = '';
+                    showAlert('Section created successfully!', 'success');
+                    loadSections();
+                } else {
+                    const error = await response.json();
+                    throw new Error(error.error);
+                }
+            } catch (error) {
+                showAlert(`Error: ${error.message}`, 'error');
+            }
+        });
+
+        // Load Sections
+        async function loadSections() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/gallery`);
+                const sections = await response.json();
+                renderSections(sections);
+            } catch (error) {
+                sectionsContainer.innerHTML = '<div class="alert alert-error">Failed to load sections</div>';
+            }
+        }
+
+        // Render Sections
+        function renderSections(sections) {
+            if (sections.length === 0) {
+                sectionsContainer.innerHTML = '<div class="section-card"><p>No sections created yet.</p></div>';
+                return;
+            }
+
+            sectionsContainer.innerHTML = sections.map(section => `
+                <div class="section-card">
+                    <div class="section-header">
+                        <div>
+                            <h3>${section.name}</h3>
+                            <small>ID: ${section.sectionId} | Images: ${section.images?.length || 0}</small>
+                        </div>
+                        <button class="btn btn-danger btn-small" onclick="deleteSection('${section.sectionId}')">
+                            <i class="fas fa-trash"></i> Delete Section
+                        </button>
+                    </div>
+                    
+                    <div class="upload-area" onclick="document.getElementById('file-${section.sectionId}').click()">
+                        <i class="fas fa-cloud-upload-alt" style="font-size: 2rem; color: #ccc;"></i>
+                        <p>Click to upload images or drag & drop</p>
+                        <input type="file" id="file-${section.sectionId}" multiple accept="image/*" style="display: none;" 
+                               onchange="uploadImages('${section.sectionId}', this.files)">
+                    </div>
+                    
+                    <div class="images-grid">
+                        ${(section.images || []).map(image => `
+                            <div class="image-item">
+                                <img src="${image.url}" alt="${section.name}">
+                                <button class="image-delete" onclick="deleteImage('${section.sectionId}', '${image.id}')">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+
+            // Add drag & drop functionality
+            sections.forEach(section => {
+                const uploadArea = document.querySelector(`#file-${section.sectionId}`).parentElement;
+                
+                uploadArea.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    uploadArea.classList.add('dragover');
+                });
+                
+                uploadArea.addEventListener('dragleave', () => {
+                    uploadArea.classList.remove('dragover');
+                });
+                
+                uploadArea.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    uploadArea.classList.remove('dragover');
+                    uploadImages(section.sectionId, e.dataTransfer.files);
+                });
+            });
+        }
+
+        // Upload Images
+        async function uploadImages(sectionId, files) {
+            if (files.length === 0) return;
+            
+            showAlert('Uploading images...', 'success');
+            
+            for (let file of files) {
+                try {
+                    const formData = new FormData();
+                    formData.append('image', file);
+                    formData.append('sectionId', sectionId);
+                    
+                    const response = await fetch(`${API_BASE_URL}/gallery/image`, {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Basic ${authToken}`
+                        },
+                        body: formData
+                    });
+                    
+                    if (!response.ok) {
+                        const error = await response.json();
+                        throw new Error(error.error);
+                    }
+                } catch (error) {
+                    showAlert(`Error uploading ${file.name}: ${error.message}`, 'error');
+                }
+            }
+            
+            showAlert('Images uploaded successfully!', 'success');
+            loadSections();
+        }
+
+        // Delete Section
+        async function deleteSection(sectionId) {
+            if (!confirm('Are you sure you want to delete this section and all its images?')) return;
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/gallery/section/${sectionId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Basic ${authToken}`
+                    }
+                });
+                
+                if (response.ok) {
+                    showAlert('Section deleted successfully!', 'success');
+                    loadSections();
+                } else {
+                    const error = await response.json();
+                    throw new Error(error.error);
+                }
+            } catch (error) {
+                showAlert(`Error: ${error.message}`, 'error');
+            }
+        }
+
+        // Delete Image
+        async function deleteImage(sectionId, imageId) {
+            if (!confirm('Are you sure you want to delete this image?')) return;
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/gallery/image/${sectionId}/${imageId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Basic ${authToken}`
+                    }
+                });
+                
+                if (response.ok) {
+                    showAlert('Image deleted successfully!', 'success');
+                    loadSections();
+                } else {
+                    const error = await response.json();
+                    throw new Error(error.error);
+                }
+            } catch (error) {
+                showAlert(`Error: ${error.message}`, 'error');
+            }
+        }
+
+        // Utility Functions
+        function showAlert(message, type) {
+            alertContainer.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
+            setTimeout(() => {
+                alertContainer.innerHTML = '';
+            }, 5000);
+        }
+
+        function showLoginError(message) {
+            loginError.textContent = message;
+            loginError.classList.remove('hidden');
+        }
+
+        function hideLoginError() {
+            loginError.classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
