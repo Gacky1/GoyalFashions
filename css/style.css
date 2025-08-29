@@ -449,7 +449,8 @@ body {
 #educationhero::after,
 #investmenthero::after,
 #contacthero::after,
-#abouthero::after {
+#abouthero::after,
+#employmenthero::after {
     content: '';
     position: absolute;
     top: 0;
@@ -458,6 +459,10 @@ body {
     bottom: 0;
     background: rgba(0, 0, 0, 0.4);
     z-index: 1;
+}
+
+#employmenthero {
+    background: url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1200&h=600&fit=crop') no-repeat center center/cover;
 }
 
 #abouthero {
